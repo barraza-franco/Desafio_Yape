@@ -14,6 +14,13 @@
     "wdio-chromedriver-service": "^8.0.1"
   },
   "scripts": {
-    "wdio": "wdio run ./wdio.conf.ts"
+    "clean": "rimraf .tsbuild && rimraf allure-results && rimraf junit-results",
+    "clean-report": "allure generate --clean ./allure-results",
+    "open-report": "npm run clean-report && allure open",
+    "wdio": "npm run clean && wdio run ./wdio.conf.ts"
+  },
+  "dependencies": {
+    "allure-commandline": "^2.20.1",
+    "rimraf": "^4.1.2"
   }
 }
