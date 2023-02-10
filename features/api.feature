@@ -1,5 +1,23 @@
-Feature: The PetStore
+Feature: The restful-booker api
 
-  Scenario: As a user, I can create a pet
+  Background:
+    Given I set base url 'https://restful-booker.herokuapp.com/'
 
-    Given I realize a get of pet
+  @Ping
+  Scenario: Ping - HealthCheck
+    Given I set path 'ping'
+    When I do GET
+    Then I validate status 201
+
+  @Auth
+  Scenario: Auth - Get token
+    Given I set path 'auth'
+    When I do Post
+    """
+    {
+      "username": "admin",
+      "password": "password123"
+    }
+    """
+    Then I validate status 200
+    And I save token
