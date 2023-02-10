@@ -35,7 +35,6 @@ export const config: Options.Testrunner = {
     ],
     // Patterns to exclude.
     exclude: [
-        // 'path/to/excluded/files'
     ],
     //
     // ============
@@ -149,7 +148,8 @@ export const config: Options.Testrunner = {
     // If you are using Cucumber you need to specify the location of your step definitions.
     cucumberOpts: {
         // <string[]> (file/dir) require files before executing features
-        require: ['./features/step-definitions/web/perurail.steps.ts'],
+        require: ['./features/step-definitions/web/perurail.steps.ts',
+                  './features/step-definitions/api/restful-booker.steps.ts'],
         // <boolean> show full backtrace for errors
         backtrace: false,
         // <string[]> ("extension:module") require files with the given EXTENSION after requiring MODULE (repeatable)
