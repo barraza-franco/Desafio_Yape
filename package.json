@@ -18,7 +18,8 @@
     "clean": "rimraf .tsbuild && rimraf allure-results && rimraf junit-results",
     "clean-report": "allure generate --clean ./allure-results",
     "open-report": "npm run clean-report && allure open",
-    "wdio": "npm run clean && wdio run ./wdio.conf.ts"
+    "webtest": "npm run clean && wdio run ./wdio.conf.ts --spec ./features/reserves.feature",
+    "apitest": "npm run clean && wdio run ./wdio.conf.ts --spec ./features/api.feature"
   },
   "dependencies": {
     "allure-commandline": "^2.20.1",
