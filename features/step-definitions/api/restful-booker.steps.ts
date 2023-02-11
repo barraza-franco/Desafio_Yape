@@ -31,7 +31,7 @@ When(/^I do GET$/, async () => {
     });
 });
 
-When(/^I do Post$/, async (body) => {
+When(/^I do POST$/, async (body) => {
     requestBody = JSON.parse(body)
     response = await axios.post(baseUrl, requestBody, { headers: headers }).then(function (response) {
         return response;
@@ -40,10 +40,26 @@ When(/^I do Post$/, async (body) => {
     });
 });
 
-When(/^I do Put$/, async (body) => {
+When(/^I do PUT$/, async (body) => {
     requestBody = JSON.parse(body)
 
     response = await axios.put(baseUrl, 
+                               requestBody, 
+                             { headers: {
+                                'Content-Type': 'application/json',
+                                'Accept': 'application/json',
+                                'Cookie': 'token='+token
+    }}).then(function (response) {
+        return response;
+    }).catch(function (response) {
+        return response.response;
+    });
+});
+
+When(/^I do PATCH$/, async (body) => {
+    requestBody = JSON.parse(body)
+
+    response = await axios.patch(baseUrl, 
                                requestBody, 
                              { headers: {
                                 'Content-Type': 'application/json',
@@ -82,7 +98,6 @@ When(/^I save the first booking id$/, async () => {
 Then(/^I validate status (.+)$/, async (status) => {
     console.log("The response body is: ")
     console.log(response.data)
-    // expect(await response.data!='').toBe(true)
     expect(await response.status.toString()).toBe(status)
 });
 
@@ -95,10 +110,15 @@ Then(/^I validate the body has keys$/, async (body) => {
 });
 
 Then(/^I validate the (.+) response body$/, async (method: string) => {
-    if(method=='Post'){
+    if(method=='POST'){
         expect(await response.data.booking).toStrictEqual(requestBody)
-    }else if(method=='Put'){
+    }else if(method=='PUT'){
         expect(await response.data).toStrictEqual(requestBody)
+    }else if(method=='PATCH'){
+
+        for(let key in requestBody){
+            expect(await response.data[key]).toBe(requestBody[key])
+        }
     }
     
 });
