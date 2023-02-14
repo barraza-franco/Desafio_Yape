@@ -1,49 +1,49 @@
 class PassengersPage {
 
-    public get continueButton(){
+    public get continueButton() {
         return $("#btnSiguienteReserva");
     }
 
-    public get firstNameField () {
+    public get firstNameField() {
         return $("#item_NombrePax_1");
     }
 
-    public get surnameField () {
+    public get surnameField() {
         return $("#item_ApellidoPax_1");
     }
 
     public genderOption = (gender: string, passangernumber: number) => $(`(//*[text()='${gender}']/following-sibling::span)[${passangernumber}]`);
 
-    public get nationalityDropdown () {
+    public get nationalityDropdown() {
         return $("#select2-item_NacionalidadPax_1-container");
     }
 
-    public get dropdownSearchField () {
+    public get dropdownSearchField() {
         return $("//input[@class='select2-search__field']");
     }
 
-    public get typeOfDocumentDropdown () {
+    public get typeOfDocumentDropdown() {
         return $("#select2-item_TipoDocumento_1-container");
     }
 
-    public get documentNumberField () {
+    public get documentNumberField() {
         return $("#item_NroDocumentoPax_1");
     }
 
-    public get telephoneNumberField () {
+    public get telephoneNumberField() {
         return $("#item_TelefonoPax_1");
     }
 
-    public get emailField () {
+    public get emailField() {
         return $("#item_EmailPax_1");
     }
 
-    public get emailConfirmationField () {
+    public get emailConfirmationField() {
         return $("#item_EmailPax_Confirm_1");
     }
 
     //Seleccionar fecha de nacimiento
-    public get dateOfBirthDate () {
+    public get dateOfBirthDate() {
         return $("#item_NacimientoPax_1");
     }
     public get monthAndYearDatePicker() {
@@ -59,7 +59,7 @@ class PassengersPage {
             && (await this.firstNameField).isEnabled()
             && (await this.surnameField).isEnabled();
     }
-    public async clickContinue(){
+    public async clickContinue() {
         await this.continueButton.click();
     }
 
@@ -69,7 +69,7 @@ class PassengersPage {
         await this.genderOption(gender, 1);
     }
 
-    public async setPassengerNationality(nationality: string, typeofdocument:string, documentnumber: string){
+    public async setPassengerNationality(nationality: string, typeofdocument: string, documentnumber: string) {
         await this.nationalityDropdown.click();
         await this.dropdownSearchField.addValue(nationality);
         await browser.keys("\uE007")
@@ -81,7 +81,7 @@ class PassengersPage {
         await this.documentNumberField.addValue(documentnumber);
     }
 
-    public async setPassengerDateBirth(day: number, month: string, year: number){
+    public async setPassengerDateBirth(day: number, month: string, year: number) {
         await this.dateOfBirthDate.waitForClickable();
         await this.dateOfBirthDate.click();
 
@@ -110,11 +110,11 @@ class PassengersPage {
             if (await this.getActualDateValue() > this.getExpectedDateValue(month, year)) {
                 await this.prevIcon.waitForClickable();
                 await this.prevIcon.click();
-            } 
+            }
         }
     }
 
-    public async setPassengerContactData(telephone: string, email: string){
+    public async setPassengerContactData(telephone: string, email: string) {
         await this.telephoneNumberField.addValue(telephone);
         await this.emailField.addValue(email);
         await this.emailConfirmationField.addValue(email);

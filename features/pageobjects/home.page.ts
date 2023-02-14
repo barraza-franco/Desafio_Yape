@@ -1,14 +1,7 @@
-import { ChainablePromiseElement } from 'webdriverio';
-
 import Page from './page.js';
 
-/**
- * sub page containing specific selectors and methods for a specific page
- */
 class HomePage extends Page {
-    /**
-     * define selectors using getter methods
-     */
+
     public get fromDropdown() {
         return $("//select[@id='Filtros_Ida_Origen']/optgroup");
     }
@@ -183,8 +176,6 @@ class HomePage extends Page {
     public open() {
         return super.open('');
     }
-
-
 }
 
 export default new HomePage();

@@ -1,51 +1,42 @@
-import { ChainablePromiseElement } from 'webdriverio';
-
-import Page from './page.js';
-
-/**
- * sub page containing specific selectors and methods for a specific page
- */
 class TrainsPage {
-    /**
-     * define selectors using getter methods
-     */
-    public get peruRailLogo () {
+   
+    public get peruRailLogo() {
         return $("//div[@id='logo-perurail']");
     }
 
-    public get continueButton () {
+    public get continueButton() {
         return $("#btnSiguiente_trenes");
     }
 
-    public get outBoundJourneyFirstOption(){
+    public get outBoundJourneyFirstOption() {
         return $("(//table[@id='Table_servicio_ida']/*/tr)[3]/td[5]/span");
     }
-    
-    public get inBoundJourneyFirstOption(){
+
+    public get inBoundJourneyFirstOption() {
         return $("(//table[@id='Table_servicio_retorno']/*/tr)[3]");
     }
 
-    public get totalPrice(){
+    public get totalPrice() {
         return $("//span[@id='liPrecioTotalTrenes']")
     }
 
-    public async validatePage(): Promise<boolean>{
+    public async validatePage(): Promise<boolean> {
         return await this.peruRailLogo.isDisplayed()
             && await this.outBoundJourneyFirstOption.isClickable();
     }
 
-    public async clickOutBoundJourneyFirstOption(){
+    public async clickOutBoundJourneyFirstOption() {
         await (await this.outBoundJourneyFirstOption).click();
     }
 
-    public async clickContinue(){
+    public async clickContinue() {
         await (await this.continueButton).waitForClickable();
         await (await this.continueButton).click();
     }
 
-    public async getTotalPrice(): Promise<number>{
+    public async getTotalPrice(): Promise<number> {
         let totalPrice = await (await this.outBoundJourneyFirstOption.getText()).substring(4);
- 
+
         return Number(totalPrice);
     }
 }
